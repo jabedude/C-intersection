@@ -4,5 +4,8 @@ CFLAGS=-Wall -Wextra -Wpedantic -Wwrite-strings -Wstack-usage=1024 -Wfloat-equal
 intersect: intersect.c intersect.h
 	$(CC) $(CFLAGS) $< -o $@
 
+debug: CFLAGS += -DDEBUG -g
+debug: intersect
+
 clean:
 	rm -f intersect
