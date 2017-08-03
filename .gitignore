@@ -1,0 +1,7 @@
+intersect
+intersect_test.pdf
+*.swp
+*.o
+a.out
+*.su
+.gdb_history
