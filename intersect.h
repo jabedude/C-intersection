@@ -13,8 +13,9 @@ typedef struct node {
 } Node;
 
 /*********FUNCTIONS*********/
+Node *mknode(void);
 char *fwords(const char *file_name);
 char **tokstr(char *words);
-void nadd(const Node **root, char *data);
+void nadd(Node *root, char *data);
 
 #endif

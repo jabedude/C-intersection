@@ -2,8 +2,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <strings.h>
 #include <ctype.h>
 #include "intersect.h"
+
+Node *mknode(void)
+{
+    Node *n = malloc(sizeof(Node));
+    n->string = NULL;
+    n->count  = 0;
+    n->left   = NULL;
+    n->right  = NULL;
+    return n;
+}
 
 unsigned long hash_fun(char *str)
 {
@@ -32,7 +43,7 @@ char *fwords(const char *file_name)
     file_sz = ftell(fp);
 #ifdef DEBUG
     printf("DEBUG: filename: %s\n", file_name);
-    printf("DEBUG: file %s size is: %ld\n", file, file_sz);
+    printf("DEBUG: file %s size is: %ld\n", file_name, file_sz);
 #endif
     rewind(fp);
     words = (char *) malloc(sizeof(char) * (file_sz + 1));
@@ -86,15 +97,40 @@ char **tokstr(char *words)
     return toks;
 }
 
-void nadd(const Node **root, char *data)
+void nadd(Node *root, char *data)
 {
-
+    if (root->count) { //Non-empty tree
+        Node *n = root;
+        Node *m = root;
+        while (n) {
+            m = n;
+            if (strcasecmp(n->string, data) < 0)
+                n = n->right;
+            else if (strcasecmp(n->string, data) > 0)
+                n = n->left;
+            else          //Already in BST
+                return;
+        }
+        Node *tmp = mknode();
+        tmp->string = data;
+        tmp->count  = 1;
+        if (strcasecmp(m->string, data) < 0)
+            m->right = tmp;
+        else if (strcasecmp(m->string, data) > 0)
+            m->left = tmp;
+    } else {            //Empty tree
+        root->string = data;
+        root->count++;
+    }
 }
 
 
 int main(int argc, char **argv)
 {
-    Node **root = NULL;
+    printf("DEBUG: STRCMP IS %d\n", strcasecmp("beer", "apple"));
+    Node *root = NULL;
+    root = mknode();
+    //TODO: args handling here
     char *all_words = fwords(argv[1]);
     char **toks = tokstr(all_words);
 
@@ -108,7 +144,7 @@ int main(int argc, char **argv)
     /* Create BST from first file */
     for (int i = 0; i < len; i++) {
         printf("%s ", toks[i]);
-
+        nadd(root, toks[i]);
     }
 
     free(all_words);
