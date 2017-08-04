@@ -223,7 +223,7 @@ int main(int argc, char **argv)
             return -1;
         }
         char word[256];
-        while (fscanf(fp, " %256s", word) == 1) {
+        while (fscanf(fp, " %255s", word) == 1) {
             tsearch(root, word);
             puts(word);
         }
