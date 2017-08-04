@@ -1,5 +1,6 @@
 #!/bin/bash
 
+############### TEST SPELLING ################
 aspell check ../writeup
 
 ############### TEST CASE ONE ################

@@ -179,6 +179,7 @@ bool tsearch(Node *root, char *term, char currfile)
         else if (strcasecmp(tmp->string, term) > 0)
             tmp = tmp->left;
         else {
+            /* Increment counter if we haven't found the word already in current file */
             if (tmp->file != currfile) {
                 tmp->file = currfile;
                 tmp->count++;
@@ -217,7 +218,7 @@ int main(int argc, char **argv)
         nadd(root, toks[i]);
     }
 
-    /* Compare words in next file to words in BST */
+    /* Compare words in next file[s] to words in BST */
     for (int i = 2; i < argc; i++) {
         FILE *fp = fopen(argv[i], "r");
         if (!fp) {
