@@ -146,6 +146,15 @@ void postprint(Node *root)
     }
 }
 
+void rmtree(Node *root)
+{
+    if (root) {
+        rmtree(root->left);
+        rmtree(root->right);
+        free(root);
+    }
+}
+
 int main(int argc, char **argv)
 {
     printf("DEBUG: STRCMP IS %d\n", strcasecmp("beer", "apple"));
@@ -169,6 +178,7 @@ int main(int argc, char **argv)
     }
 
     postprint(root);
+    rmtree(root);
 
     free(all_words);
     free(toks);
