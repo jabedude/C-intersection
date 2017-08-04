@@ -75,7 +75,7 @@ char **tokstr(char *words)
     char *tok;
     int pos = 0;
 
-    tok = strtok(words, " \t");
+    tok = strtok(words, " \t\f\n\r\v");
     while (tok != NULL) {
         toks[pos] = tok;
         pos++;
@@ -231,6 +231,7 @@ int main(int argc, char **argv)
 
     intprint(root, argc - 1);
 
+    /* Cleanup, cleanup, everybody do your share! */
     rmtree(root);
     free(all_words);
     free(toks);
