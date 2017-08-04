@@ -147,6 +147,17 @@ void ordprint(Node *root)
     return;
 }
 
+void intprint(Node *root, char num)
+{
+    if (root) {
+        intprint(root->left, num);
+        if (root->count == num)
+            printnode(root);
+        intprint(root->right, num);
+    }
+    return;
+}
+
 void rmtree(Node *root)
 {
     if (root) {
@@ -156,9 +167,25 @@ void rmtree(Node *root)
     }
 }
 
+bool tsearch(Node *root, char *term)
+{
+    Node *tmp = root;
+    while (tmp) {
+        if (strcasecmp(tmp->string, term) < 0)
+            tmp = tmp->right;
+        else if (strcasecmp(tmp->string, term) > 0)
+            tmp = tmp->left;
+        else {
+            tmp->count++;
+            return true; 
+        }
+    }
+    return false;
+}
+
 int main(int argc, char **argv)
 {
-    printf("DEBUG: STRCMP IS %d\n", strcasecmp("beer", "apple"));
+    printf("DEBUG: STRCMP IS %d\n", strcasecmp("apple", "beeR"));
     Node *root = NULL;
     //TODO: args handling here
     if (argc < 2) {
@@ -185,7 +212,28 @@ int main(int argc, char **argv)
         nadd(root, toks[i]);
     }
 
+    /* DEBUG */
     ordprint(root);
+
+    /* Compare words in next file to words in BST */
+    for (int i = 2; i < argc; i++) {
+        FILE *fp = fopen(argv[i], "r");
+        if (!fp) {
+            printf("%s: unknown error!\n", argv[0]);
+            return -1;
+        }
+        char word[256];
+        while (fscanf(fp, " %256s", word) == 1) {
+            tsearch(root, word);
+            puts(word);
+        }
+        fclose(fp);
+    }
+
+    /* DEBUG */
+    ordprint(root);
+    puts("DEBUG INTERSECTION LIST\n");
+    intprint(root, argc - 1);
 
     rmtree(root);
     free(all_words);

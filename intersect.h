@@ -18,8 +18,10 @@ void printnode(const Node *n);
 void rmtree(Node *root);
 void preprint(Node *root);
 void ordprint(Node *root);
+void intprint(Node *root, char num);
 char *fwords(const char *file_name);
 char **tokstr(char *words);
 void nadd(Node *root, char *data);
+bool tsearch(Node *root, char *term);
 
 #endif
