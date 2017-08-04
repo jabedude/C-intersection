@@ -1,45 +1,65 @@
 Name:
-
+        Josh Abraham
 Date:
-
+        4 August 2017
 Current Module:
-
+        Data Structures & Algorithms
 Project Name:
-
+        File Intersect
 Project Goals:
 
-  <A two to three sentence description of the project and its intent>
+        The project involves finding words common between a number of test files. After finding the common words, the program prints them in alphabetic order.
 
 Considerations:
 
-  <A bulleted list of considerations and conditions which affected the design of your project>
+        - Only the first file is guaranteed to fit in memory.
+        - Words are delimited by spaces, form-feeds, newlines, carriage returns, horizontal tabs, and vertical tabs.
+        - The comparisons must be case insensitive.
+        - Text files are ASCII files.
+        - Efficiency is important.
 
 Initial Design:
 
-  <A paragraph or more that adequately describes your program's structure and layout discussing the various modules (.c and corresponding .h files) that you implemented>
+        My program is one source and one header file. I split the code into reusable functions for readability.
+        Intersect.h holds the BST node structure and function prototypes. Intersect.c holds implementations and main().
 
 Data Flow:
 
-  <A paragraph or longer describing the data flow of the program in a sequential manner. Include a diagram when necessary.>
+        - Checks number of command line arguments.
+        - Reads all words from file.
+        - Tokenizes words in file.
+        - Create BST from tokens from file.
+        - Read each word from subsequent files
+        - Traverse BST and increment Node's counter if match is found and not found already in current file.
+        - Print Nodes in BST whose counters match the number of files
+        - Free tree and associated memory.
 
 Communication Protocol:
 
-  <Discuss any custom communication protocol you have used including the various request and responses that may be sent and received.>
+        N/A
 
 Potential Pitfalls:
 
-  <Discuss any potential issues that you might run into while creating the project>
+        - Only first file can be read into memory in entirety, so we need a way to read the other files.
+        - Multiple occurrences of a word in a single file can't count towards its count number.
 
 Test Plan:
 
   User Test:
 
-    <Describe the steps taken for each user test.>
+        - Run program with no files
+        - Run program with one file
+        - Run program with many files
 
   Test Cases:
 
-    <A brief overview of the test cases that you implemented.>
+        - Pass files with duplicates that have different cases (i.e. dOg vs dog)
+        - Pass files with matching case duplicates
+        - Pass files with no duplicates
+        - Pass non-existent file
 
 Conclusion:
 
-  <A review of the project, what worked, what didn’t and how to improve upon your project in the future.>
+        Overall the project is a success. The BST works, the program is memory efficient, and the program has no memory leaks.
+        I would like to improve by balancing the BST and pruning it. I would also like to chunk the first file in the case of an
+        extremely large file.
