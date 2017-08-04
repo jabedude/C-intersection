@@ -1,5 +1,7 @@
 #!/bin/bash
 
+aspell check ../writeup
+
 ############### TEST CASE ONE ################
 ans1="blow	2
 se7en	2
