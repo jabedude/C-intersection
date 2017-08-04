@@ -37,8 +37,10 @@ char *fwords(const char *file_name)
     int pos = 0;
 
     fp = fopen(file_name, "r");
-    if (!fp)
-        return NULL;
+    if (!fp) {
+        printf("unknown error opening %s!\n", file_name);
+        exit(-1);
+    }
     fseek(fp, 0, SEEK_END);
     file_sz = ftell(fp);
 #ifdef DEBUG
@@ -219,7 +221,7 @@ int main(int argc, char **argv)
     for (int i = 2; i < argc; i++) {
         FILE *fp = fopen(argv[i], "r");
         if (!fp) {
-            printf("%s: unknown error!\n", argv[0]);
+            printf("%s: unknown error opening %s!\n", argv[0], argv[i]);
             return -1;
         }
         char word[256];
