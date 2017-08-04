@@ -137,13 +137,14 @@ void preprint(Node *root)
     }
 }
 
-void postprint(Node *root)
+void ordprint(Node *root)
 {
     if (root) {
+        ordprint(root->left);
         printnode(root);
-        preprint(root->left);
-        preprint(root->right);
+        ordprint(root->right);
     }
+    return;
 }
 
 void rmtree(Node *root)
@@ -184,7 +185,7 @@ int main(int argc, char **argv)
         nadd(root, toks[i]);
     }
 
-    postprint(root);
+    ordprint(root);
 
     rmtree(root);
     free(all_words);

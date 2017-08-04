@@ -17,7 +17,7 @@ Node *mknode(void);
 void printnode(const Node *n);
 void rmtree(Node *root);
 void preprint(Node *root);
-void postprint(Node *root);
+void ordprint(Node *root);
 char *fwords(const char *file_name);
 char **tokstr(char *words);
 void nadd(Node *root, char *data);
