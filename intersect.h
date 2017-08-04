@@ -8,6 +8,7 @@
 typedef struct node {
     char *string;
     char count;
+    char file;
     struct node *left;
     struct node *right;
 } Node;
@@ -22,6 +23,6 @@ void intprint(Node *root, char num);
 char *fwords(const char *file_name);
 char **tokstr(char *words);
 void nadd(Node *root, char *data);
-bool tsearch(Node *root, char *term);
+bool tsearch(Node *root, char *term, char curfile);
 
 #endif

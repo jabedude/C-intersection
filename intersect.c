@@ -10,6 +10,7 @@ Node *mknode(void)
     Node *n = malloc(sizeof(Node));
     n->string = NULL;
     n->count  = 0;
+    n->file   = 1;
     n->left   = NULL;
     n->right  = NULL;
     return n;
@@ -151,7 +152,7 @@ void intprint(Node *root, char num)
 {
     if (root) {
         intprint(root->left, num);
-        if (root->count == num)
+        if (root->count >= num)
             printnode(root);
         intprint(root->right, num);
     }
@@ -167,7 +168,7 @@ void rmtree(Node *root)
     }
 }
 
-bool tsearch(Node *root, char *term)
+bool tsearch(Node *root, char *term, char currfile)
 {
     Node *tmp = root;
     while (tmp) {
@@ -176,7 +177,10 @@ bool tsearch(Node *root, char *term)
         else if (strcasecmp(tmp->string, term) > 0)
             tmp = tmp->left;
         else {
-            tmp->count++;
+            if (tmp->file != currfile) {
+                tmp->file = currfile;
+                tmp->count++;
+            }
             return true;
         }
     }
@@ -226,7 +230,7 @@ int main(int argc, char **argv)
         char word[256];
         puts("PRINTF WORDS IN FILE\n");
         while (fscanf(fp, " %255s", word) == 1) {
-            tsearch(root, word);
+            tsearch(root, word, i);
             puts(word);
         }
         fclose(fp);
