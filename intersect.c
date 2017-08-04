@@ -159,10 +159,17 @@ int main(int argc, char **argv)
 {
     printf("DEBUG: STRCMP IS %d\n", strcasecmp("beer", "apple"));
     Node *root = NULL;
-    root = mknode();
     //TODO: args handling here
+    if (argc < 2) {
+        printf("Usage: %s FILE1 FILE2 ...\n", argv[0]);
+        return -1;
+    }
     char *all_words = fwords(argv[1]);
     char **toks = tokstr(all_words);
+    if (!all_words || !toks) {
+        printf("%s: unknown error!\n", argv[0]);
+        return -1;
+    }
 
     int tmp = 0, len = 0;
     while (toks[tmp]) {
@@ -172,14 +179,14 @@ int main(int argc, char **argv)
 
 
     /* Create BST from first file */
+    root = mknode();
     for (int i = 0; i < len; i++) {
-        //printf("%s ", toks[i]);
         nadd(root, toks[i]);
     }
 
     postprint(root);
-    rmtree(root);
 
+    rmtree(root);
     free(all_words);
     free(toks);
     return 0;
