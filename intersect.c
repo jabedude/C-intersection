@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <strings.h>
 #include <ctype.h>
 #include "intersect.h"
 
@@ -124,6 +123,28 @@ void nadd(Node *root, char *data)
     }
 }
 
+void printnode(const Node *n)
+{
+    printf("%s\t%d\n", n->string, n->count);
+}
+
+void preprint(Node *root)
+{
+    if (root) {
+        printnode(root);
+        preprint(root->left);
+        preprint(root->right);
+    }
+}
+
+void postprint(Node *root)
+{
+    if (root) {
+        printnode(root);
+        preprint(root->left);
+        preprint(root->right);
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -143,9 +164,11 @@ int main(int argc, char **argv)
 
     /* Create BST from first file */
     for (int i = 0; i < len; i++) {
-        printf("%s ", toks[i]);
+        //printf("%s ", toks[i]);
         nadd(root, toks[i]);
     }
+
+    postprint(root);
 
     free(all_words);
     free(toks);

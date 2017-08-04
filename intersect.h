@@ -14,6 +14,9 @@ typedef struct node {
 
 /*********FUNCTIONS*********/
 Node *mknode(void);
+void printnode(const Node *n);
+void preprint(Node *root);
+void postprint(Node *root);
 char *fwords(const char *file_name);
 char **tokstr(char *words);
 void nadd(Node *root, char *data);
