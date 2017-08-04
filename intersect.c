@@ -21,7 +21,7 @@ unsigned long hash_fun(char *str)
     unsigned long hash = 5381;
     int c;
 
-    while (c = *str++)
+    while ((c = *str++))
         hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
     return hash;
@@ -74,7 +74,7 @@ char **tokstr(char *words)
     char *tok;
     int pos = 0;
 
-    tok = strtok(words, " ");
+    tok = strtok(words, " \t");
     while (tok != NULL) {
         toks[pos] = tok;
         pos++;
@@ -90,7 +90,7 @@ char **tokstr(char *words)
 #endif
             toks = (char **) realloc(toks, buffsz);
         }
-        tok = strtok(NULL, " ");
+        tok = strtok(NULL, " \t");
     }
     toks[pos] = NULL;
     return toks;
@@ -177,7 +177,7 @@ bool tsearch(Node *root, char *term)
             tmp = tmp->left;
         else {
             tmp->count++;
-            return true; 
+            return true;
         }
     }
     return false;
@@ -193,6 +193,7 @@ int main(int argc, char **argv)
         return -1;
     }
     char *all_words = fwords(argv[1]);
+    printf("DEBUG: all words: %s\n", all_words);
     char **toks = tokstr(all_words);
     if (!all_words || !toks) {
         printf("%s: unknown error!\n", argv[0]);
@@ -223,6 +224,7 @@ int main(int argc, char **argv)
             return -1;
         }
         char word[256];
+        puts("PRINTF WORDS IN FILE\n");
         while (fscanf(fp, " %255s", word) == 1) {
             tsearch(root, word);
             puts(word);
