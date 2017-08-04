@@ -189,7 +189,6 @@ bool tsearch(Node *root, char *term, char currfile)
 
 int main(int argc, char **argv)
 {
-    printf("DEBUG: STRCMP IS %d\n", strcasecmp("apple", "beeR"));
     Node *root = NULL;
     //TODO: args handling here
     if (argc < 2) {
@@ -197,7 +196,6 @@ int main(int argc, char **argv)
         return -1;
     }
     char *all_words = fwords(argv[1]);
-    printf("DEBUG: all words: %s\n", all_words);
     char **toks = tokstr(all_words);
     if (!all_words || !toks) {
         printf("%s: unknown error!\n", argv[0]);
@@ -217,9 +215,6 @@ int main(int argc, char **argv)
         nadd(root, toks[i]);
     }
 
-    /* DEBUG */
-    ordprint(root);
-
     /* Compare words in next file to words in BST */
     for (int i = 2; i < argc; i++) {
         FILE *fp = fopen(argv[i], "r");
@@ -228,17 +223,12 @@ int main(int argc, char **argv)
             return -1;
         }
         char word[256];
-        puts("PRINTF WORDS IN FILE\n");
         while (fscanf(fp, " %255s", word) == 1) {
             tsearch(root, word, i);
-            puts(word);
         }
         fclose(fp);
     }
 
-    /* DEBUG */
-    ordprint(root);
-    puts("DEBUG INTERSECTION LIST\n");
     intprint(root, argc - 1);
 
     rmtree(root);
