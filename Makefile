@@ -7,5 +7,8 @@ intersect: intersect.c intersect.h
 debug: CFLAGS += -DDEBUG -g
 debug: intersect
 
+profile: CFLAGS += -pg
+profile: intersect
+
 clean:
 	rm -f intersect
