@@ -1,9 +1,6 @@
 #ifndef INTERSECT_LIB_H
 #define INTERSECT_LIB_H
 
-/********DEFINITIONS********/
-#define WORD_BUF 64
-
 /*********STRUCTURES********/
 typedef struct node {
     char *string;
