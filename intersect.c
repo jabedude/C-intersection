@@ -16,18 +16,6 @@ Node *mknode(void)
     return n;
 }
 
-unsigned long hash_fun(char *str)
-{
-// https://stackoverflow.com/questions/7666509/hash-function-for-string
-    unsigned long hash = 5381;
-    int c;
-
-    while ((c = *str++))
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-
-    return hash;
-}
-
 char *fwords(const char *file_name)
 {
     FILE *fp;
