@@ -128,7 +128,7 @@ void nadd(Node *root, char *data)
 
 void printnode(const Node *n)
 {
-    printf("%s\t%d\n", n->string, n->count);
+    printf("%s\n", n->string);
 }
 
 void preprint(Node *root)
