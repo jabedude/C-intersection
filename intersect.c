@@ -182,7 +182,7 @@ int main(int argc, char **argv)
 {
     Node *root = NULL;
     //TODO: args handling here
-    if (argc < 2) {
+    if (argc < 3) {
         printf("Usage: %s FILE1 FILE2 ...\n", argv[0]);
         return -1;
     }
